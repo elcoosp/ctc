@@ -17,7 +17,7 @@ export const workflowDefinitionSchema = z.object({
   edges: z.array(z.object({ from: z.string(), to: z.string() })),
   outputConnectors: z.array(z.object({
     connector: z.string(),
-    config: z.record(z.any()),
+    config: z.record(z.string(), z.any()),
     artifactSelector: z.string(),
   })).optional(),
 });

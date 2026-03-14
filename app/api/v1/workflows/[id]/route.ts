@@ -149,6 +149,6 @@ export const { GET, PUT, DELETE } = route({
         return TypedNextResponse.json({ error: 'Not found' }, { status: 404 });
       }
 
-      return new Response(null, { status: 204 });
+      return TypedNextResponse.json(undefined, { status: 204 });
     }),
 });
