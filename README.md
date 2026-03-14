@@ -119,7 +119,27 @@ Visit [http://localhost:3000](http://localhost:3000) and sign in with GitHub.
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](./docs/images/architecture.png)
+```mermaid
+graph TD
+    A[User Browser] --> B[Next.js Frontend<br/>App Router]
+    B --> C[Next.js API Routes]
+    C --> D[(Turso Database)]
+    C --> E[GitHub API]
+    C --> F[LLM Service<br/>Ollama / Mock]
+    C --> G[Background Worker<br/>Processes runs asynchronously]
+    G --> C
+    E --> H[GitHub Repositories]
+    E --> I[GitHub Actions]
+    C --> J[Publishing Connectors<br/>GitHub PR, etc.]
+    
+    style A fill:#f4f4f4,stroke:#333,stroke-width:1px
+    style B fill:#e1f5fe,stroke:#333,stroke-width:1px
+    style C fill:#dcedc8,stroke:#333,stroke-width:1px
+    style D fill:#ffe0b2,stroke:#333,stroke-width:1px
+    style E fill:#f8bbd0,stroke:#333,stroke-width:1px
+    style F fill:#b2ebf2,stroke:#333,stroke-width:1px
+    style G fill:#fff9c4,stroke:#333,stroke-width:1px
+```
 
 - **Frontend**: Next.js 15 (App Router) with React Server Components.
 - **API**: Type‑safe endpoints built with `next-rest-framework` and Zod.

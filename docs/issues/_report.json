@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-03-14T16:57:20.516Z",
+  "totalIssues": 15,
+  "written": 15,
+  "skipped": 0,
+  "stepsUsed": 5,
+  "completed": true,
+  "linkConfig": {
+    "useFullUrls": false,
+    "planExample": "../spec/impl-plan.md#chunk-5-skill-system",
+    "specExample": "../spec/srs.md#req-func-040",
+    "archExample": "../spec/archi.md#adr-007",
+    "testExample": "../spec/test-verification.md#sc-func-010"
+  },
+  "byPriority": {
+    "must": 14,
+    "should": 1,
+    "could": 0
+  },
+  "byLabel": {
+    "backend": 9,
+    "infrastructure": 3,
+    "must": 14,
+    "feature": 15,
+    "size:small": 5,
+    "frontend": 6,
+    "size:medium": 9,
+    "size:large": 1,
+    "should": 1,
+    "database": 1,
+    "testing": 1,
+    "security": 1
+  },
+  "byAssignee": {
+    "elcoosp": 15
+  }
+}
