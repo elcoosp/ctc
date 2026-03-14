@@ -1,0 +1,14 @@
+{
+  "name": "ctc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "issues:gen": "pnpx @elcoosp-ai/seedling gen",
+    "issues:sync": "pnpx @elcoosp-ai/seedling sync --repo elcoosp/skilldeck --dir ./docs/issues"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1"
+}
