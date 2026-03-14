@@ -24,7 +24,7 @@ export async function Header() {
       <div className="flex items-center gap-4">
         <Badge variant="outline">Free Plan · {usageMonth}/10 runs</Badge>
         <Avatar className="size-10">
-          <AvatarImage src={user.image} />
+          <AvatarImage src={user.image as string} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
       </div>
