@@ -1,3 +1,4 @@
+// db/schema.ts
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
@@ -5,32 +6,34 @@ export const users = sqliteTable('users', {
   email: text('email').notNull().unique(),
   emailVerified: integer('email_verified', { mode: 'timestamp' }),
   name: text('name'),
-  image: text('image'), // was avatarUrl
+  image: text('image'),
   plan: text('plan', { enum: ['free', 'pro'] }).default('free').notNull(),
   usageMonth: integer('usage_month').default(0).notNull(),
   sandboxUsed: integer('sandbox_used').default(0).notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
+
 export const verifications = sqliteTable('verifications', {
   id: text('id').primaryKey(),
   identifier: text('identifier').notNull(),
-  value: text('value').notNull(), // RENAMED from 'token' to 'value'
+  value: text('value').notNull(),
   expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
+
 export const accounts = sqliteTable('accounts', {
   id: text('id').primaryKey(),
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  accountId: text('account_id').notNull(), // was providerAccountId
-  providerId: text('provider_id').notNull(), // was provider
+  accountId: text('account_id').notNull(),
+  providerId: text('provider_id').notNull(),
   accessToken: text('access_token'),
   refreshToken: text('refresh_token'),
-  expiresAt: integer('expires_at'),
-  password: text('password'), // optional, for email/password
+  expiresAt: integer('expires_at', { mode: 'timestamp' }),
+  password: text('password'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
@@ -40,15 +43,14 @@ export const sessions = sqliteTable('sessions', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  token: text('token').notNull().unique(), // was sessionToken
-  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(), // was expires
+  token: text('token').notNull().unique(),
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
   ipAddress: text('ip_address'),
   userAgent: text('user_agent'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
 
-// Your existing workflows, runs, connectors tables remain unchanged
 export const workflows = sqliteTable('workflows', {
   id: text('id').primaryKey(),
   userId: text('user_id')
