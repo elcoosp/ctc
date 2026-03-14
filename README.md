@@ -1,5 +1,5 @@
 <h1 align="center">
-  AI Content Agent Dashboard
+  CTC: AI Content Agent Dashboard
 </h1>
 
 <p align="center">
