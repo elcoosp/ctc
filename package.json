@@ -1,5 +1,5 @@
 {
-  "name": "ctc",
+  "name": "ai-content-agent-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,13 @@
     "lint": "biome check",
     "format": "biome format --write",
     "issues:gen": "pnpx @elcoosp-ai/seedling gen",
-    "issues:sync": "pnpx @elcoosp-ai/seedling sync --repo elcoosp/skilldeck --dir ./docs/issues"
+    "issues:sync": "pnpx @elcoosp-ai/seedling sync --repo elcoosp/skilldeck --dir ./docs/issues",
+    "db:generate": "drizzle-kit generate:sqlite --schema db/schema.ts --out db/migrations",
+    "db:migrate": "drizzle-kit push:sqlite --schema db/schema.ts"
   },
   "dependencies": {
+    "@libsql/client": "0.15.2",
+    "drizzle-orm": "0.41.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -23,6 +27,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "drizzle-kit": "0.30.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
