@@ -18,10 +18,11 @@ createdAt: '2026-03-14T16:57:03.525Z'
 priority: must
 effort: 1.5d
 dependencies:
-  - task-1.2-nextauth-github
+  - task-1.2-better-auth-github
   - task-3.1-workflow-execution-engine
   - task-3.2-run-details-ui
 ---
+
 ## Context
 
 After a workflow run completes, users need to publish the results as a GitHub Pull Request. This requires creating a connector that can create a branch, commit a file, and open a PR in the user's repository using their OAuth token.
@@ -53,7 +54,7 @@ We need to implement a GitHub PR connector that takes the output from a complete
 
 ### Implementation Details
 
-**Files to create/modify:**
+**Files to create:**
 - `connectors/github-pr.ts` — GitHub PR creation logic (create branch, commit file, open PR)
 - `app/api/v1/connectors/route.ts` — GET (list) and POST (create) connectors
 - `app/api/v1/connectors/[id]/route.ts` — GET, PUT, DELETE single connector
@@ -62,7 +63,7 @@ We need to implement a GitHub PR connector that takes the output from a complete
 - `components/runs/publish-buttons.tsx` — Publish buttons component for run details page
 
 **Key interfaces:**
-- `createPR(repoFullName, filePath, content, branchName?)` — Creates branch, commits file, opens PR
+- `createPR(repoFullName, filePath, content, branchName?)` — Creates branch, commits file, opens PR (uses access token from better-auth)
 - `POST /api/v1/connectors` — Create connector config (encrypted)
 - `GET /api/v1/connectors` — List user's connectors
 - `POST /api/v1/connectors/:id/test` — Test connector connection
@@ -74,14 +75,14 @@ We need to implement a GitHub PR connector that takes the output from a complete
 - [ ] GitHub PR connector creates branch from main
 - [ ] Connector commits content as base64-encoded file
 - [ ] Connector opens PR with title and body
-- [ ] PR URL returned and stored in run.finalArtifacts
+- [ ] PR URL returned and stored in `run.finalArtifacts`
 - [ ] Connector config stored encrypted in database
 - [ ] Connectors API supports CRUD operations
 - [ ] Test endpoint validates connector configuration
 - [ ] Publish endpoint retrieves run results and connector config
 - [ ] Publish endpoint extracts last node output as content
 - [ ] Publish endpoint calls appropriate connector based on type
-- [ ] PublishButtons component shows available connectors
+- [ ] `PublishButtons` component shows available connectors
 - [ ] Publish buttons disabled while publishing
 - [ ] Toast notification shows success with PR link
 - [ ] Toast notification shows error on failure
@@ -99,7 +100,7 @@ We need to implement a GitHub PR connector that takes the output from a complete
 
 ## Dependencies
 
-- **Blocked by:** Task 1.2 (NextAuth), Task 3.1 (Workflow execution), Task 3.2 (Run details UI)
+- **Blocked by:** Task 1.2 (better-auth), Task 3.1 (Workflow execution), Task 3.2 (Run details UI)
 - **Blocks:** None
 
 ## Effort Estimate

@@ -21,6 +21,7 @@ dependencies:
   - task-1.5-github-repo-listing
   - task-2.1-workflow-crud-api
 ---
+
 ## Context
 
 Users need a visual interface to create and manage workflows. This includes a list view of all workflows, a page to create new workflows, and an edit page for existing workflows. The UI should follow shadcn/ui best practices.
@@ -66,15 +67,15 @@ We need to create the workflow management UI with a list page, a new workflow pa
 - [ ] Empty state shows when no workflows exist
 - [ ] "New Workflow" button navigates to creation page
 - [ ] New workflow page has name input and workflow form
-- [ ] Workflow form includes RepoSelector component
-- [ ] Workflow form shows available agents as buttons
+- [ ] Workflow form includes `RepoSelector` component (already built)
+- [ ] Workflow form shows available agents as buttons (agents from registry)
 - [ ] Clicking agent button adds node to list
 - [ ] Nodes display in sequential order
 - [ ] Edit page fetches existing workflow and pre-populates form
-- [ ] Loading.tsx shows skeleton or loading message
-- [ ] Error.tsx handles errors with retry option
-- [ ] All components use shadcn/ui (Card, Button, Input, Label)
-- [ ] FieldGroup and Field used for form layouts
+- [ ] `loading.tsx` shows skeleton or loading message
+- [ ] `error.tsx` handles errors with retry option
+- [ ] All components use shadcn/ui (Card, Button, Input, Label, Select)
+- [ ] Form layouts follow shadcn best practices (use `Field`, `FieldGroup` if needed)
 
 ## Testing Requirements
 

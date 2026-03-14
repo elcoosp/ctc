@@ -19,10 +19,11 @@ priority: must
 effort: 2d
 dependencies:
   - task-1.1-database-schema
-  - task-1.2-nextauth-github
+  - task-1.2-better-auth-github
   - task-1.6-agent-registry
   - task-2.1-workflow-crud-api
 ---
+
 ## Context
 
 The workflow execution engine is the core processing system that runs AI agents sequentially, fetches code context from GitHub, and stores results. This includes a background worker for processing pending runs and quota enforcement.
@@ -62,9 +63,9 @@ We need to implement the workflow execution engine that fetches code from GitHub
 
 ### Implementation Details
 
-**Files to create/modify:**
-- `lib/workflow-engine/code-fetcher.ts` — Fetch repository code from GitHub API
-- `lib/workflow-engine/executor.ts` — Execute workflow nodes sequentially
+**Files to create:**
+- `lib/workflow-engine/code-fetcher.ts` — Fetch repository code from GitHub API (use access token from better-auth)
+- `lib/workflow-engine/executor.ts` — Execute workflow nodes sequentially using agent registry
 - `app/api/v1/workflows/[id]/run/route.ts` — POST endpoint to start run with quota checks
 - `workers/run-processor.ts` — Background worker to process pending runs
 - `app/api/cron/process-runs/route.ts` — Vercel cron endpoint (protected by secret)
@@ -74,7 +75,7 @@ We need to implement the workflow execution engine that fetches code from GitHub
 - `executeWorkflow(definition, repo)` — Executes nodes sequentially, resolves inputs, returns results
 - `POST /api/v1/workflows/:id/run` — Creates run record, checks quota, returns runId
 - `processPendingRuns()` — Worker function that processes runs with status 'pending'
-- `GET /api/cron/process-runs` — Cron endpoint protected by CRON_SECRET
+- `GET /api/cron/process-runs` — Cron endpoint protected by `CRON_SECRET`
 
 ## Acceptance Criteria
 
@@ -82,16 +83,16 @@ We need to implement the workflow execution engine that fetches code from GitHub
 - [ ] Code fetcher filters out markdown and text files
 - [ ] Code fetcher limits to first 10 code files for MVP
 - [ ] Executor resolves node inputs from constants or previous node outputs
-- [ ] Executor calls agent.execute() for each node sequentially
-- [ ] Executor stores results in nodeResults with status per node
+- [ ] Executor calls `agent.execute()` for each node sequentially
+- [ ] Executor stores results in `nodeResults` with status per node
 - [ ] Executor stops on first node failure and marks run as failed
 - [ ] Run endpoint checks monthly quota (10 for free tier)
 - [ ] Run endpoint checks sandbox quota (3 total)
 - [ ] Run endpoint creates run record with status 'pending'
 - [ ] Background worker updates run status to 'running'
 - [ ] Background worker increments usage counters on completion
-- [ ] Cron endpoint validates CRON_SECRET header
-- [ ] All errors properly caught and stored in nodeResults
+- [ ] Cron endpoint validates `CRON_SECRET` header
+- [ ] All errors properly caught and stored in `nodeResults`
 
 ## Testing Requirements
 
@@ -114,7 +115,7 @@ We need to implement the workflow execution engine that fetches code from GitHub
 
 ## Dependencies
 
-- **Blocked by:** Task 1.1 (Database schema), Task 1.2 (NextAuth), Task 1.6 (Agent registry), Task 2.1 (Workflow API)
+- **Blocked by:** Task 1.1 (Database schema), Task 1.2 (better-auth), Task 1.6 (Agent registry), Task 2.1 (Workflow API)
 - **Blocks:** Task 3.2 (Run details UI), Task 4.1 (GitHub PR connector)
 
 ## Effort Estimate

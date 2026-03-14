@@ -13,14 +13,15 @@ references:
   - >-
     ../spec/impl-plan.md#task-15-implement-github-api-client-to-list-repositories-with-async-session
   - ../spec/srs.md#req-func-011
-state: open
+state: closed
 createdAt: '2026-03-14T16:54:41.941Z'
 priority: must
 effort: 1d
 dependencies:
-  - task-1.2-nextauth-github
+  - task-1.2-better-auth-github
   - task-1.4-next-rest-framework
 ---
+
 ## Context
 
 Users need to select a GitHub repository when creating workflows. This requires fetching their repositories via the GitHub API using the OAuth access token stored in their session.
@@ -35,48 +36,17 @@ Users need to select a GitHub repository when creating workflows. This requires 
 **Related Tests:**
 - [TC-GITHUB-001](../spec/test-verification.md#tc-github-001) - List repos
 
-## Problem Statement
+## Implementation Status (Completed)
 
-We need to create a GitHub API client that fetches the user's repositories using their OAuth access token, and expose this via a type-safe API endpoint. A frontend component should allow users to select a repository.
+The GitHub API client and repository selector have been implemented:
 
-## Solution Approach
+- `lib/github.ts` — Fetches user repos using access token from better-auth session.
+- `app/api/v1/github/repos/route.ts` — next-rest-framework endpoint returning Zod-validated repo list.
+- `components/repo-selector.tsx` — shadcn/ui Select component with loading and error states.
+- The endpoint correctly handles authentication errors.
 
-### Implementation Details
+All acceptance criteria have been met, and the component is ready to be used in the workflow creation form.
 
-**Files to create/modify:**
-- `lib/github.ts` — GitHub API client with fetchUserRepos function
-- `app/api/v1/github/repos/route.ts` — API endpoint using next-rest-framework
-- `components/repo-selector.tsx` — Client component for repository selection
+## Closing Note
 
-**Key interfaces:**
-- `fetchUserRepos()` — Fetches repos from GitHub API with auth token
-- `GET /api/v1/github/repos` — Returns array of repos with Zod-validated response
-- `RepoSelector` — shadcn/ui Select component for repo selection
-
-## Acceptance Criteria
-
-- [ ] GitHub client fetches repos with proper authentication
-- [ ] API endpoint returns validated Zod schema response
-- [ ] Error handling for unauthenticated users
-- [ ] RepoSelector component uses shadcn/ui Select
-- [ ] Loading and error states handled in RepoSelector
-- [ ] SelectGroup used for repo list organization
-
-## Testing Requirements
-
-**BDD scenarios:**
-- [TC-GITHUB-001](../spec/test-verification.md#tc-github-001) - List repositories
-
-**Unit tests:**
-- Test fetchUserRepos with mocked auth
-- Test API endpoint response schema
-
-## Dependencies
-
-- **Blocked by:** Task 1.2 (NextAuth setup), Task 1.4 (next-rest-framework)
-- **Blocks:** Task 2.2 (Workflow editor UI)
-
-## Effort Estimate
-
-- **Complexity:** Medium
-- **Effort:** 1d
+This task is complete. No further work required.

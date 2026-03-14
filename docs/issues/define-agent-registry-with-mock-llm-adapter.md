@@ -16,7 +16,9 @@ state: open
 createdAt: '2026-03-14T16:54:41.942Z'
 priority: must
 effort: 1d
+dependencies: []
 ---
+
 ## Context
 
 The workflow engine needs a registry of AI agents that can be executed. For MVP, we need at least two agents: research-writer and copywriting. Initially, we'll use a mock LLM adapter to enable development without a real LLM service.
@@ -44,7 +46,7 @@ We need to define an agent registry with input/output schemas using Zod, and cre
 
 ### Implementation Details
 
-**Files to create/modify:**
+**Files to create:**
 - `agents/types.ts` — Agent interface definition
 - `agents/mock-llm.ts` — Mock LLM function for testing
 - `services/llm/adapter.ts` — LLMAdapter interface and MockLLMAdapter implementation
@@ -65,7 +67,7 @@ We need to define an agent registry with input/output schemas using Zod, and cre
 - [ ] MockLLMAdapter returns valid JSON for each agent type
 - [ ] research-writer agent defined with input/output schemas
 - [ ] copywriting agent defined with input/output schemas
-- [ ] getAgent() function retrieves agents by name
+- [ ] `getAgent()` function retrieves agents by name
 - [ ] Unit tests verify schema validation
 - [ ] Zod 4 import syntax used
 

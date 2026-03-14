@@ -20,6 +20,7 @@ dependencies:
   - task-1.3-dashboard-layout
   - task-3.1-workflow-execution-engine
 ---
+
 ## Context
 
 Users need to view their workflow runs with real-time status updates. The UI should poll for run status, display node results, and show completion/failure states. This provides visibility into the workflow execution process.
@@ -51,7 +52,7 @@ We need to create a runs list page and a run details page that polls for status 
 - `app/(dashboard)/runs/loading.tsx` — Loading UI for runs
 - `app/(dashboard)/runs/error.tsx` — Error boundary for runs
 - `app/(dashboard)/runs/[id]/page.tsx` — Run details page (client component with polling)
-- `app/api/v1/runs/[id]/route.ts` — GET endpoint for single run
+- `app/api/v1/runs/[id]/route.ts` — GET endpoint for single run (to be created)
 - `components/runs/run-status-badge.tsx` — Status badge component
 - `components/runs/node-results.tsx` — Node results display component
 
@@ -60,7 +61,7 @@ We need to create a runs list page and a run details page that polls for status 
 - `RunDetailsPage` — Client component with polling (2s interval)
 - `RunStatusBadge` — Badge with status-specific styling
 - `NodeResults` — Expandable cards for each node's output
-- `GET /api/v1/runs/:id` — Returns run with nodeResults
+- `GET /api/v1/runs/:id` — Returns run with `nodeResults`
 
 ## Acceptance Criteria
 

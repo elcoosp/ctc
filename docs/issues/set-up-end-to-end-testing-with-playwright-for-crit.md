@@ -19,6 +19,7 @@ dependencies:
   - task-2.2-workflow-editor-ui
   - task-3.2-run-details-ui
 ---
+
 ## Context
 
 End-to-end testing ensures the application works correctly from the user's perspective. We need to set up Playwright and write tests for the critical user journeys: authentication, workflow creation, and run execution.
@@ -43,12 +44,12 @@ We need to configure Playwright for E2E testing and write test specifications fo
 
 ### Implementation Details
 
-**Files to create/modify:**
+**Files to create:**
 - `playwright.config.ts` — Playwright configuration
 - `e2e/auth.spec.ts` — Authentication E2E tests
 - `e2e/workflow.spec.ts` — Workflow creation E2E tests
 - `e2e/run.spec.ts` — Run execution E2E tests
-- `package.json` — Add Playwright dependencies and test:e2e script
+- `package.json` — Add Playwright dependencies and `test:e2e` script
 
 **Key interfaces:**
 - `playwright.config.ts` — Configure browsers, base URL, test match
@@ -65,9 +66,9 @@ We need to configure Playwright for E2E testing and write test specifications fo
 - [ ] Workflow test edits an existing workflow
 - [ ] Run test starts a workflow run
 - [ ] Run test polls for completion status
-- [ ] All tests use role-based selectors (getByRole, getByText)
+- [ ] All tests use role-based selectors (`getByRole`, `getByText`)
 - [ ] No React-specific selectors used
-- [ ] test:e2e script added to package.json
+- [ ] `test:e2e` script added to `package.json`
 - [ ] Tests can run in CI environment
 
 ## Testing Requirements

@@ -1,6 +1,6 @@
 ---
 id: create-dashboard-layout-with-header-sidebar-and-us
-title: 'Create dashboard layout with header, sidebar, and user profile display'
+title: 'Dashboard layout and user profile display (dynamic usage counters)'
 labels:
   - frontend
   - must
@@ -16,14 +16,15 @@ createdAt: '2026-03-14T16:54:41.939Z'
 priority: must
 effort: 0.5d
 dependencies:
-  - task-1.2-nextauth-github
+  - task-1.2-better-auth-github
 ---
+
 ## Context
 
-After authentication, users need a dashboard layout that displays their profile information and provides navigation to different sections. This establishes the main UI shell for the application.
+The dashboard layout with sidebar and header has been implemented. The header currently shows a hardcoded usage count (0/10 runs). To complete this task, we need to fetch the actual `usageMonth` and `sandboxUsed` from the database and display them in the header.
 
 **Related Plan Section:**
-- [Task 1.3: Display user profile and usage](../spec/impl-plan.md#task-13-display-user-profile-and-usage-async-session)
+- [Task 1.3: Display user profile and usage (async session)](../spec/impl-plan.md#task-13-display-user-profile-and-usage-async-session)
 
 **Related Requirements:**
 - [REQ-FUNC-002](../spec/srs.md#req-func-002) - Profile Storage
@@ -31,49 +32,48 @@ After authentication, users need a dashboard layout that displays their profile 
 
 **Related UX:**
 - [Dashboard Home](../spec/ux.md#51-dashboard-home) - Layout structure
-- [Navigation](../spec/ux.md#42-navigation) - Sidebar design
 
-## Problem Statement
+## Current State (Already Done)
+- shadcn/ui initialized with Avatar and Badge components.
+- Dashboard layout (`app/(dashboard)/layout.tsx`) renders sidebar and header.
+- Sidebar (`components/dashboard/sidebar.tsx`) contains navigation links.
+- Header (`components/dashboard/header.tsx`) displays user avatar and a badge with hardcoded usage.
+- Loading UI (`app/(dashboard)/loading.tsx`) exists.
 
-We need to create the dashboard layout with a sidebar for navigation, a header showing user profile and usage stats, and proper loading states. The layout must follow shadcn/ui best practices and use server components where possible.
+## Remaining Work
+
+We need to fetch the real `usageMonth` and `sandboxUsed` from the `users` table and display them in the header. The values are stored in the database but not yet included in the session. Two options:
+
+1. Extend the better-auth session via a custom callback to include these fields.
+2. Query the database directly in the `Header` component (server component) using the user ID from the session.
+
+We'll implement option 2 for simplicity.
 
 ## Solution Approach
 
-### Implementation Details
+**Files to modify:**
+- `components/dashboard/header.tsx` — Add database query to fetch user's usage counters.
 
-**Files to create/modify:**
-- `app/(dashboard)/layout.tsx` — Dashboard layout with sidebar and header
-- `components/dashboard/header.tsx` — Header component with user avatar and usage badge
-- `components/dashboard/sidebar.tsx` — Navigation sidebar with links
-- `app/(dashboard)/loading.tsx` — Loading UI for dashboard segment
-
-**Key interfaces:**
-- `Header` — Server component that awaits auth session
-- `Sidebar` — Server component with navigation links
-- Usage badge — Shows plan and run count (hardcoded initially)
+**Steps:**
+- In `header.tsx`, after obtaining the session, use `db` to select `usageMonth` and `sandboxUsed` from the `users` table where `id` equals `session.user.id`.
+- Update the badge to display the fetched values.
 
 ## Acceptance Criteria
 
-- [ ] shadcn/ui initialized with default configuration
-- [ ] Avatar and Badge components installed
-- [ ] Dashboard layout renders with sidebar and header
-- [ ] Header displays user avatar with fallback initials
-- [ ] Header shows plan badge (Free Plan · 0/10 runs)
-- [ ] Sidebar contains navigation links: Home, Workflows, Runs, Agents, Connectors, Settings
-- [ ] All navigation uses proper Next.js Link components
-- [ ] Loading UI displays while dashboard segment loads
-- [ ] Components follow shadcn/ui best practices (size-* for equal dimensions, gap-* for spacing)
+- [ ] `Header` component fetches `usageMonth` and `sandboxUsed` from the database.
+- [ ] Badge shows the actual run count (e.g., "Free Plan · 3/10 runs").
+- [ ] Sandbox usage not displayed in header (but could be added later if needed).
+- [ ] No hardcoded values remain.
 
 ## Testing Requirements
 
-**Visual tests:**
-- Verify layout renders correctly on desktop and tablet
-- Check that all navigation links are accessible
+**Manual test:**
+- Sign in and verify that the badge shows the correct usage count after running workflows.
 
 ## Dependencies
 
-- **Blocked by:** Task 1.2 (NextAuth setup)
-- **Blocks:** Task 2.2 (Workflow editor UI), Task 3.2 (Run details UI)
+- **Blocked by:** Task 1.2 (better-auth)
+- **Blocks:** None (this is the final part of an already mostly completed task)
 
 ## Effort Estimate
 

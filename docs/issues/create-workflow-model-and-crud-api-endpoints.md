@@ -18,9 +18,10 @@ priority: must
 effort: 1.5d
 dependencies:
   - task-1.1-database-schema
-  - task-1.2-nextauth-github
+  - task-1.2-better-auth-github
   - task-1.4-next-rest-framework
 ---
+
 ## Context
 
 Workflows are the core entity that users create to chain AI agents together. We need a complete CRUD API for workflows with versioning support. Each workflow has a definition (JSON) that specifies nodes and edges.
@@ -33,7 +34,7 @@ Workflows are the core entity that users create to chain AI agents together. We 
 - [REQ-FUNC-005](../spec/srs.md#req-func-005) - Version History
 
 **Related Architecture:**
-- [Database Schema](../spec/archi.md#53-database-schema-conceptual-with-drizzle) - workflows and workflow_versions tables
+- [Database Schema](../spec/archi.md#53-database-schema-conceptual-with-drizzle) - `workflows` and `workflow_versions` tables (already created)
 
 **Related Tests:**
 - [TC-WORKFLOW-001](../spec/test-verification.md#tc-workflow-001) - Create workflow with two nodes
@@ -74,7 +75,7 @@ We need to implement the workflow data model with Zod schemas for validation, an
 - [ ] DELETE endpoint removes workflow and cascades to versions
 - [ ] Versions endpoint returns ordered version history
 - [ ] All endpoints use next-rest-framework with Zod validation
-- [ ] Authentication required for all endpoints
+- [ ] Authentication required for all endpoints (using better-auth)
 - [ ] Proper error responses for unauthorized and not found cases
 
 ## Testing Requirements
@@ -90,7 +91,7 @@ We need to implement the workflow data model with Zod schemas for validation, an
 
 ## Dependencies
 
-- **Blocked by:** Task 1.1 (Database schema), Task 1.2 (NextAuth), Task 1.4 (next-rest-framework)
+- **Blocked by:** Task 1.1 (Database schema), Task 1.2 (better-auth), Task 1.4 (next-rest-framework)
 - **Blocks:** Task 2.2 (Workflow editor UI), Task 3.1 (Workflow execution)
 
 ## Effort Estimate

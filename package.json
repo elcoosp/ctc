@@ -9,7 +9,7 @@
     "lint": "biome check",
     "format": "biome format --write",
     "issues:gen": "pnpx @elcoosp-ai/seedling gen",
-    "issues:sync": "pnpx @elcoosp-ai/seedling sync --repo elcoosp/skilldeck --dir ./docs/issues",
+    "issues:sync": "pnpx @elcoosp-ai/seedling sync --repo elcoosp/ctc --dir ./docs/issues",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit push",
     "generate:openapi": "NODE_OPTIONS='--import=tsx' next-rest-framework generate",

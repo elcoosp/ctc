@@ -21,6 +21,7 @@ dependencies:
   - task-2.2-workflow-editor-ui
   - task-3.2-run-details-ui
 ---
+
 ## Context
 
 Before launch, the UI needs polish to ensure consistent styling, proper accessibility attributes, and dark mode support. This includes reviewing all components for ARIA labels, keyboard navigation, and color contrast.
@@ -38,7 +39,7 @@ Before launch, the UI needs polish to ensure consistent styling, proper accessib
 
 ## Problem Statement
 
-We need to review all UI components for accessibility compliance, add proper ARIA labels, ensure keyboard navigation works, and optionally add dark mode support using next-themes.
+We need to review all UI components for accessibility compliance, add proper ARIA labels, ensure keyboard navigation works, and optionally add dark mode support using `next-themes`.
 
 ## Solution Approach
 
@@ -46,23 +47,23 @@ We need to review all UI components for accessibility compliance, add proper ARI
 
 **Files to create/modify:**
 - `components/ui/` — Review all shadcn/ui components for accessibility
-- `app/layout.tsx` — Add ThemeProvider for dark mode (optional)
+- `app/layout.tsx` — Add `ThemeProvider` for dark mode (optional)
 - `components/theme-toggle.tsx` — Dark mode toggle component (optional)
 - All form components — Ensure proper labels and ARIA attributes
 
 **Key interfaces:**
-- ThemeProvider — next-themes provider for dark mode
-- ThemeToggle — Button to switch between light/dark/system
-- Form components — Field with data-invalid and data-disabled states
+- `ThemeProvider` — `next-themes` provider for dark mode
+- `ThemeToggle` — Button to switch between light/dark/system
+- Form components — `Field` with `data-invalid` and `data-disabled` states
 - All interactive elements — Proper focus states and ARIA labels
 
 ## Acceptance Criteria
 
 - [ ] All interactive elements have proper ARIA labels
-- [ ] Form fields use FieldGroup + Field composition
-- [ ] Validation states use data-invalid on Field, aria-invalid on control
-- [ ] Disabled states use data-disabled on Field, disabled on control
-- [ ] Buttons with icons use data-icon attribute
+- [ ] Form fields use `FieldGroup` + `Field` composition (create if needed)
+- [ ] Validation states use `data-invalid` on `Field`, `aria-invalid` on control
+- [ ] Disabled states use `data-disabled` on `Field`, `disabled` on control
+- [ ] Buttons with icons use `data-icon` attribute
 - [ ] Color contrast meets WCAG AA (4.5:1 for text)
 - [ ] All components keyboard navigable
 - [ ] Focus states visible and consistent
