@@ -1,16 +1,14 @@
 CREATE TABLE `accounts` (
 	`id` text PRIMARY KEY,
 	`user_id` text NOT NULL,
-	`type` text NOT NULL,
-	`provider` text NOT NULL,
-	`provider_account_id` text NOT NULL,
-	`refresh_token` text,
+	`account_id` text NOT NULL,
+	`provider_id` text NOT NULL,
 	`access_token` text,
+	`refresh_token` text,
 	`expires_at` integer,
-	`token_type` text,
-	`scope` text,
-	`id_token` text,
-	`session_state` text,
+	`password` text,
+	`created_at` integer NOT NULL,
+	`updated_at` integer NOT NULL,
 	CONSTRAINT `fk_accounts_user_id_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
 --> statement-breakpoint
@@ -38,18 +36,22 @@ CREATE TABLE `runs` (
 --> statement-breakpoint
 CREATE TABLE `sessions` (
 	`id` text PRIMARY KEY,
-	`session_token` text NOT NULL UNIQUE,
 	`user_id` text NOT NULL,
-	`expires` integer NOT NULL,
+	`token` text NOT NULL UNIQUE,
+	`expires_at` integer NOT NULL,
+	`ip_address` text,
+	`user_agent` text,
+	`created_at` integer NOT NULL,
+	`updated_at` integer NOT NULL,
 	CONSTRAINT `fk_sessions_user_id_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
 	`id` text PRIMARY KEY,
-	`github_id` integer NOT NULL UNIQUE,
-	`email` text NOT NULL,
+	`email` text NOT NULL UNIQUE,
+	`email_verified` integer,
 	`name` text,
-	`avatar_url` text,
+	`image` text,
 	`plan` text DEFAULT 'free' NOT NULL,
 	`usage_month` integer DEFAULT 0 NOT NULL,
 	`sandbox_used` integer DEFAULT 0 NOT NULL,
@@ -58,9 +60,12 @@ CREATE TABLE `users` (
 );
 --> statement-breakpoint
 CREATE TABLE `verification_tokens` (
+	`id` text PRIMARY KEY,
 	`identifier` text NOT NULL,
 	`token` text NOT NULL,
-	`expires` integer NOT NULL
+	`expires_at` integer NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `workflow_versions` (

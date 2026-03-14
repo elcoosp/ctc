@@ -1,4 +1,4 @@
-import { signIn } from '@/lib/auth';
+import { signIn } from '@/lib/auth/client';
 import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
@@ -7,7 +7,7 @@ export default function LoginPage() {
       <form
         action={async () => {
           'use server';
-          await signIn('github', { redirectTo: '/dashboard' });
+          await signIn.social({ provider: "github", });
         }}
       >
         <Button type="submit">Sign in with GitHub</Button>

@@ -1,7 +1,7 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "id": "3def79a8-860e-4ff5-be86-a459cb4fa017",
+  "id": "359062c0-2eff-4292-977f-573563c7380d",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
@@ -64,7 +64,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "type",
+      "name": "account_id",
       "entityType": "columns",
       "table": "accounts"
     },
@@ -74,27 +74,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "provider",
-      "entityType": "columns",
-      "table": "accounts"
-    },
-    {
-      "type": "text",
-      "notNull": true,
-      "autoincrement": false,
-      "default": null,
-      "generated": null,
-      "name": "provider_account_id",
-      "entityType": "columns",
-      "table": "accounts"
-    },
-    {
-      "type": "text",
-      "notNull": false,
-      "autoincrement": false,
-      "default": null,
-      "generated": null,
-      "name": "refresh_token",
+      "name": "provider_id",
       "entityType": "columns",
       "table": "accounts"
     },
@@ -105,6 +85,16 @@
       "default": null,
       "generated": null,
       "name": "access_token",
+      "entityType": "columns",
+      "table": "accounts"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "refresh_token",
       "entityType": "columns",
       "table": "accounts"
     },
@@ -124,37 +114,27 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "token_type",
+      "name": "password",
       "entityType": "columns",
       "table": "accounts"
     },
     {
-      "type": "text",
-      "notNull": false,
+      "type": "integer",
+      "notNull": true,
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "scope",
+      "name": "created_at",
       "entityType": "columns",
       "table": "accounts"
     },
     {
-      "type": "text",
-      "notNull": false,
+      "type": "integer",
+      "notNull": true,
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "id_token",
-      "entityType": "columns",
-      "table": "accounts"
-    },
-    {
-      "type": "text",
-      "notNull": false,
-      "autoincrement": false,
-      "default": null,
-      "generated": null,
-      "name": "session_state",
+      "name": "updated_at",
       "entityType": "columns",
       "table": "accounts"
     },
@@ -314,7 +294,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "session_token",
+      "name": "user_id",
       "entityType": "columns",
       "table": "sessions"
     },
@@ -324,7 +304,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "user_id",
+      "name": "token",
       "entityType": "columns",
       "table": "sessions"
     },
@@ -334,7 +314,47 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "expires",
+      "name": "expires_at",
+      "entityType": "columns",
+      "table": "sessions"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "ip_address",
+      "entityType": "columns",
+      "table": "sessions"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "user_agent",
+      "entityType": "columns",
+      "table": "sessions"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "table": "sessions"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "updated_at",
       "entityType": "columns",
       "table": "sessions"
     },
@@ -349,22 +369,22 @@
       "table": "users"
     },
     {
-      "type": "integer",
-      "notNull": true,
-      "autoincrement": false,
-      "default": null,
-      "generated": null,
-      "name": "github_id",
-      "entityType": "columns",
-      "table": "users"
-    },
-    {
       "type": "text",
       "notNull": true,
       "autoincrement": false,
       "default": null,
       "generated": null,
       "name": "email",
+      "entityType": "columns",
+      "table": "users"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "email_verified",
       "entityType": "columns",
       "table": "users"
     },
@@ -384,7 +404,7 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "avatar_url",
+      "name": "image",
       "entityType": "columns",
       "table": "users"
     },
@@ -440,6 +460,16 @@
     },
     {
       "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "verification_tokens"
+    },
+    {
+      "type": "text",
       "notNull": true,
       "autoincrement": false,
       "default": null,
@@ -464,7 +494,27 @@
       "autoincrement": false,
       "default": null,
       "generated": null,
-      "name": "expires",
+      "name": "expires_at",
+      "entityType": "columns",
+      "table": "verification_tokens"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "table": "verification_tokens"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "updated_at",
       "entityType": "columns",
       "table": "verification_tokens"
     },
@@ -728,6 +778,15 @@
         "id"
       ],
       "nameExplicit": false,
+      "name": "verification_tokens_pk",
+      "table": "verification_tokens",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
       "name": "workflow_versions_pk",
       "table": "workflow_versions",
       "entityType": "pks"
@@ -743,19 +802,19 @@
     },
     {
       "columns": [
-        "session_token"
+        "token"
       ],
       "nameExplicit": false,
-      "name": "sessions_session_token_unique",
+      "name": "sessions_token_unique",
       "entityType": "uniques",
       "table": "sessions"
     },
     {
       "columns": [
-        "github_id"
+        "email"
       ],
       "nameExplicit": false,
-      "name": "users_github_id_unique",
+      "name": "users_email_unique",
       "entityType": "uniques",
       "table": "users"
     }
