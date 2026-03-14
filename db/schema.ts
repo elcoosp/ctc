@@ -12,7 +12,14 @@ export const users = sqliteTable('users', {
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
-
+export const verifications = sqliteTable('verifications', {
+  id: text('id').primaryKey(),
+  identifier: text('identifier').notNull(),
+  value: text('value').notNull(), // RENAMED from 'token' to 'value'
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+});
 export const accounts = sqliteTable('accounts', {
   id: text('id').primaryKey(),
   userId: text('user_id')
@@ -37,15 +44,6 @@ export const sessions = sqliteTable('sessions', {
   expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(), // was expires
   ipAddress: text('ip_address'),
   userAgent: text('user_agent'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
-});
-
-export const verificationTokens = sqliteTable('verification_tokens', {
-  id: text('id').primaryKey(),
-  identifier: text('identifier').notNull(),
-  token: text('token').notNull(),
-  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(), // was expires
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });

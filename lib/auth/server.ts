@@ -1,11 +1,14 @@
+// lib/auth/server.ts
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from '@/db/client';
+import * as schema from '@/db/schema'; // 1. Import the schema
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: 'sqlite', // or 'pg' / 'mysql'
-    usePlural: true,    // because our tables are plural (users, accounts, etc.)
+    provider: 'sqlite',
+    schema, // 2. Pass the schema explicitly
+    usePlural: true,
   }),
   socialProviders: {
     github: {
@@ -15,9 +18,4 @@ export const auth = betterAuth({
     },
   },
   strategy: 'jwt',
-  user: {
-    // Map custom fields if needed; we already aligned field names, so no mapping required.
-    // If you want to keep 'avatarUrl' instead of 'image', you could map:
-    // fields: { image: 'avatarUrl' }
-  },
 });
